@@ -6,7 +6,8 @@
 module Main (main) where
 
 import Agda.Main ( runAgda )
-import Prelude ( IO )
+import Prelude ( IO, (>>) )
+import Pledge (security)
 
 main :: IO ()
-main = runAgda []
+main = security >> runAgda []

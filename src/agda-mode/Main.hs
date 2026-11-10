@@ -16,6 +16,7 @@ module Main (main) where
 import System.Environment ( getArgs, getProgName )
 import System.Exit        ( exitFailure )
 import System.FilePath    ( takeFileName )
+import Pledge
 
 import Agda.Setup as Agda ( getDataDir, setup )
 import Agda.Setup.EmacsMode
@@ -25,8 +26,8 @@ import Agda.Version       ( version )
 
 main :: IO ()
 main = do
+  security
   self <- takeFileName <$> getProgName
-
   args <- getArgs
   case args of
     [arg]
@@ -44,6 +45,8 @@ main = do
           Agda.setup False
 
           setupDotEmacs "agda"
+
+-- Command line options.
 
       | arg == compileFlag -> do
           inform $ deprecation self
